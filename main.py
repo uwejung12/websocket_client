@@ -12,7 +12,11 @@ async def listen():
         await ws.send("Hello Server!")
         # Stay alive forever, listening to incoming msgs
         while True:
-            msg = await ws.recv()
+            try:
+                msg = await ws.recv()
+            except:
+                print('closed')
+                await ws.send("Hello Server!")
             print(msg)
 
 # Start the connection
